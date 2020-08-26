@@ -759,5 +759,5 @@
     "url": "https://github.com/finiteinfinity/dredd/issues"
   },
   "homepage": "https://github.com/finiteinfinity/dredd#readme",
-  "bin": "./packages/dredd/bin/dredd",
+  "bin": "./packages/dredd/bin/dredd"
 }
