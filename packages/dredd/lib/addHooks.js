@@ -73,7 +73,7 @@ export default function addHooks(runner, transactions, callback) {
 
   // Clone the configuration object to hooks.configuration to make it
   // accessible in the node.js hooks API
-  runner.hooks.configuration = clone(runner.configuration);
+  runner.hooks.configuration = runner.configuration;
 
   // If the language is empty or it is nodejs
   if (
