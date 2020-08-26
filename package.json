@@ -11,7 +11,7 @@
     "lint": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn lint",
     "test:smoke": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn test:smoke",
     "test": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn test",
-    "postinstall": "cd ./node_modules/dredd && yarn install && yarn build"
+    "postinstall": "yarn install && yarn build"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
