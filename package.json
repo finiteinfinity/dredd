@@ -1,44 +1,92 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "lerna exec --scope=\"*\" yarn build",
-    "prettify:check": "lerna exec --scope=\"dredd\" yarn prettify:check",
-    "docs:lint": "sphinx-build -nW -b linkcheck ./docs ./docs/_build",
-    "docs:test-extensions": "python -m unittest docs/_extensions/*.py --verbose",
-    "docs:build": "sphinx-build -nW -b html ./docs ./docs/_build",
-    "docs:serve": "sphinx-autobuild ./docs ./docs/_build",
-    "commit:lint": "./scripts/commitlint.sh",
-    "lint": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn lint",
-    "test:smoke": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn test:smoke",
-    "test": "lerna exec --scope=\"*\" --concurrency=1 --no-bail yarn test"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "8.3.5",
-    "@commitlint/config-conventional": "8.3.4",
-    "commitlint-circle": "1.0.0",
-    "lerna": "^3.16.4"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
   "name": "dredd",
-  "description": "[![npm version](https://badge.fury.io/js/dredd.svg)](https://www.npmjs.com/package/dredd) [![Build Status](https://circleci.com/gh/apiaryio/dredd/tree/master.svg?style=svg)](https://circleci.com/gh/apiaryio/dredd/tree/master) [![Build Status](https://ci.appveyor.com/api/projects/status/n3ixfxh72qushyr4/branch/master?svg=true)](https://ci.appveyor.com/project/Apiary/dredd/branch/master) [![Documentation Status](https://readthedocs.org/projects/dredd/badge/?version=latest)](https://readthedocs.org/projects/dredd/builds/) [![Known Vulnerabilities](https://snyk.io/test/npm/dredd/badge.svg)](https://snyk.io/test/npm/dredd)",
-  "version": "1.0.0",
-  "main": "commitlint.config.js",
-  "directories": {
-    "doc": "docs"
+  "version": "13.1.2",
+  "description": "HTTP API Testing Framework",
+  "main": "build/index.js",
+  "bin": {
+    "dredd": "bin/dredd"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "start": "npm run build -- --watch",
+    "build": "tsc --build tsconfig.json",
+    "lint": "eslint . bin/dredd",
+    "prettify": "prettier --write lib/**/*.js test/**/*.js",
+    "prettify:check": "prettier --check lib/**/*.js test/**/*.js",
+    "test": "mocha \"./test/**/*-test.js\"",
+    "test:smoke": "bash ./scripts/smoke.sh",
+    "e2e": "yarn e2e:apib && yarn e2e:openapi2",
+    "e2e:apib": "cucumber-js",
+    "e2e:openapi2": "cucumber-js --world-parameters=\"{\\\"apiDescriptionFormat\\\": \\\"application/swagger+yaml\\\"}\"",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/finiteinfinity/dredd.git"
+    "url": "https://github.com/finiteinfinity/dredd"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/finiteinfinity/dredd/issues"
+  "files": [
+    "bin",
+    "build",
+    "options.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "async": "3.2.0",
+    "caseless": "0.12.0",
+    "chai": "4.2.0",
+    "clone": "2.1.2",
+    "cross-spawn": "7.0.2",
+    "dredd-transactions": "^9.2.2",
+    "gavel": "^9.1.1",
+    "glob": "7.1.6",
+    "html": "1.0.0",
+    "htmlencode": "0.0.4",
+    "inquirer": "7.1.0",
+    "js-yaml": "3.13.1",
+    "make-dir": "3.1.0",
+    "markdown-it": "10.0.0",
+    "optimist": "0.6.1",
+    "proxyquire": "2.1.3",
+    "ramda": "0.27.0",
+    "request": "2.88.0",
+    "spawn-args": "0.2.0",
+    "untildify": "4.0.0",
+    "uuid": "7.0.3",
+    "which": "1.3.1",
+    "winston": "2.4.0"
   },
-  "homepage": "https://github.com/finiteinfinity/dredd#readme",
-  "bin": "./packages/dredd/bin/dredd"
+  "devDependencies": {
+    "@types/chai": "4.2.11",
+    "@types/clone": "0.1.30",
+    "@types/mocha": "7.0.2",
+    "@types/proxyquire": "1.3.28",
+    "@types/ramda": "0.27.4",
+    "@types/which": "1.3.2",
+    "body-parser": "1.19.0",
+    "coffeescript": "2.5.1",
+    "cucumber": "6.0.5",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "13.2.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.18.2",
+    "express": "4.17.1",
+    "mocha": "7.1.2",
+    "nock": "10.0.6",
+    "prettier": "1.18.2",
+    "ps-node": "0.1.6",
+    "sinon": "9.0.2",
+    "ts-node": "8.10.2",
+    "typescript": "3.8.3"
+  },
+  "keywords": [
+    "api",
+    "test",
+    "testing",
+    "documenation",
+    "integration",
+    "acceptance"
+  ],
+  "license": "MIT"
 }
