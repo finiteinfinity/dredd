@@ -3,9 +3,7 @@
   "version": "13.1.2",
   "description": "HTTP API Testing Framework",
   "main": "build/index.js",
-  "bin": {
-    "dredd": "bin/dredd"
-  },
+  "bin": "./packages/dredd/bin/dredd",
   "engines": {
     "node": ">=8"
   },
